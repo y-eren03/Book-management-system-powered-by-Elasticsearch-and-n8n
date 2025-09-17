@@ -1,0 +1,1263 @@
+{
+  "name": "BOOKSTORE WORKFLOW",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        256,
+        240
+      ],
+      "id": "c05e3088-a9d6-4a02-aea7-ce02637e381d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ns5lHh7zauit6VGY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://localhost:5678/mcp/elastic",
+        "serverTransport": "httpStreamable",
+        "include": "selected",
+        "includeTools": [
+          "Get_an_index_in_Elasticsearch",
+          "Delete_a_document_in_Elasticsearch",
+          "Get_a_document_in_Elasticsearch",
+          "Get_many_documents_in_Elasticsearch",
+          "Update_a_document_in_bookstore",
+          "Create_a_document_in_bookstore"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        624,
+        240
+      ],
+      "id": "8c71b319-3fee-4562-8fdf-83b01ba597d7",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "path": "elastic"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -624,
+        64
+      ],
+      "id": "048a0150-c125-4f1c-8a0b-74220d7c8332",
+      "name": "MCP Server Trigger",
+      "webhookId": "50bd2631-bc81-4796-aab6-c24ea2d7fc99"
+    },
+    {
+      "parameters": {
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "documentId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Document_ID', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        224
+      ],
+      "id": "b92be6e8-8c35-451e-84fb-7e0054896283",
+      "name": "Get a document in Elasticsearch",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        224
+      ],
+      "id": "607af752-571f-4c54-bba2-e43194874a79",
+      "name": "Get many documents in Elasticsearch",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "documentId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Document_ID', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        272
+      ],
+      "id": "99d41b91-a7aa-4a37-94e0-bebb92ed0f83",
+      "name": "Delete a document in Elasticsearch",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "index",
+        "operation": "get",
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        208
+      ],
+      "id": "290fb642-313b-4050-bd32-77e083c543d5",
+      "name": "Get an index in Elasticsearch",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        208,
+        48
+      ],
+      "id": "23d8386c-4255-4934-af30-4355377d4838",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -784,
+        464
+      ],
+      "id": "0bc5a5ed-9478-40fc-9b33-ea501363f39d",
+      "name": "Günlük Trigger"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        656
+      ],
+      "id": "91ec06b1-ace7-41fb-a46f-f630a377315f",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ns5lHh7zauit6VGY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://localhost:5678/mcp/elastic",
+        "serverTransport": "httpStreamable",
+        "include": "selected",
+        "includeTools": [
+          "Get_a_document_in_Elasticsearch",
+          "Get_an_index_in_Elasticsearch",
+          "Get_many_documents_in_Elasticsearch",
+          "Create_a_document_in_bookstore",
+          "Update_a_document_in_bookstore",
+          "Delete_a_document_in_Elasticsearch"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        -192,
+        656
+      ],
+      "id": "4357f310-a4e0-4dbf-b355-e0e921ff3a20",
+      "name": "MCP Client1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -592,
+        464
+      ],
+      "id": "3f53c98d-1716-4849-90a3-0d3b795bfbf3",
+      "name": "Date & Time1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rol:\nSen bir MCP AI analizcisisin. Elasticsearch bookstore ve indirim_gunleri indekslerindeki kayıtları incele, sistem metriklerini değerlendir ve günlük kontrolleri otomatik yap.  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.  \n2. Mesaja göre uygun tool’u seç:  \n   - Tüm kitapları listelemek için: **Get many documents**  \n   - Yeni kitap eklemek için: **Create a document**  \n   - Kitap güncellemek (fiyat/indirim/stock): **Update a document**  \n   - Kitap silmek için: **Delete a document**  \n\ncreate a document kullanırken:  \n   {\n     \"tool\": \"Create a document\",\n     \"params\": {\n       \"index\": \"bookstore\",\n       \"document_body\": {\n         \"author\": \"title'a göre sen doldur\",\n         \"category\": \"title'a göre sen doldur\",\n         \"title\": \"kullanıcı mesajındaki başlık\",\n         \"price\": \"kullanıcı mesajındaki fiyat veya indirime göre hesaplanan\",\n         \"stock\": \"kullanıcı mesajındaki stok\" ,\n          \"discountrate\": \"0 olucak daha sonra kullanım için\" ,\n          \"İncreaseRate\": \"0 olucak daha sonra kullanım için\" ,\n          \"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n       }\n     }\n   }\n\nupdate a document kullanırken:\n{\n  \"tool\": \"Update a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<book_id>\",\n    \"document_body\": {\n      \"price\": \"yeni fiyat veya indirim sonrası değer\",\n      \"stock\": \"yeni stok\",\n      \"discountRate\": \"indirim yüzdesi etiketi eğer varsa\" ,\n        \"İncreaseRate\": \"zam yüzdesi etiketi eğer varsa\" ,\n      \"status\": \"indirime giren kitaplar için indirim türü (ör. Normal, BlackFriday)\",\n\"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n    }\n  }\n}\n\n\nÖnemli!\nZaten indirimde olan bir kitaba bir daha indirim yapma!\n\n\nEğer kullanıcı “kitap sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<log_id>\"\n  }\n}\n\nKONTROL İŞLEMLERİ\n\nStok Kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nÖnce Get many documents ile kitapları çek\nEğer stoku 5 veya altında olan bir kitap varsa Stock Alert başlığı ile html formatında cevap sun.\n\nİndirim günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün bir indirim günü ise:\nİlgili günün indirim_orani değerini al.\nKullanıcı tarafından seçilen kitaplara bu oranla fiyat hesaplaması yap.\nUpdate a document ile price ve status alanlarını güncelle, indirim türünü (ör. BlackFriday, CyberMonday) etikete ekle.\n\nİndirim bitiş günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün indirim günü değil ve kitapların indirim türü özel gün indirimi ise:\nKitapların eski fiyatlarını geri hesapla.\nUpdate a document ile price ve status alanlarını güncelle, indirim etiketi kaldır.\nEğer kitapların indirim türü normal (standart) indirim ise, hiçbir işlem yapılmaz.\n\nGünlük kontrolleri yap.\nBu kontroller hakkında bir rapor yaz. \nHtml formatında gönder.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -432,
+        464
+      ],
+      "id": "bf739e95-8c11-4998-a48e-e22314cefcda",
+      "name": "Kontrol Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rol:  \nSen bir MCP AI analizcisisin. Elasticsearch `bookstore` indeksindeki kayıtları incele, sistem metriklerini değerlendir, senaryolara göre otomatik aksiyon al (gerekirse doküman sil/güncelle/ekle) .  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.  \n2. Mesaja göre uygun tool’u seç:  \n   - Tüm kitapları listelemek için: **Get many documents**  \n   - Yeni kitap eklemek için: **Create a document**  \n   - Kitap güncellemek (fiyat/indirim/stock): **Update a document**  \n   - Kitap silmek için: **Delete a document**  \n\nCevabını HTML formatında yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\n\n\ncreate a document kullanırken:  \n   {\n     \"tool\": \"Create a document\",\n     \"params\": {\n       \"index\": \"bookstore\",\n       \"document_body\": {\n         \"author\": \"title'a göre sen doldur\",\n         \"category\": \"title'a göre sen doldur\",\n         \"title\": \"kullanıcı mesajındaki başlık\",\n         \"price\": \"kullanıcı mesajındaki fiyat veya indirime göre hesaplanan\",\n         \"stock\": \"kullanıcı mesajındaki stok\" ,\n          \"discountrate\": \"0 olucak daha sonra kullanım için\" ,\n          \"İncreaseRate\": \"0 olucak daha sonra kullanım için\" ,\n          \"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n       }\n     }\n   }\n\nupdate a document kullanırken:\n{\n  \"tool\": \"Update a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<book_id>\",\n    \"document_body\": {\n      \"price\": \"yeni fiyat veya indirim sonrası değer\",\n      \"stock\": \"yeni stok\",\n      \"discountRate\": \"indirim yüzdesi etiketi eğer varsa\" ,\n        \"İncreaseRate\": \"zam yüzdesi etiketi eğer varsa\" ,\n      \"status\": \"indirime giren kitaplar için indirim türü (ör. Normal, BlackFriday)\",\n\"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n    }\n  }\n}\n\n\nEğer kullanıcı “indirim yap veya zam yap” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nDaha sonra o id'lerdeki kitaplar için yeni fiyatı hesapla (%X indirim).\nSonra o id'lerdeki kitaplar için Update a document çağır ve fiyatını güncelle.\nEğer bir kitaba veya kitaplara indirim yapılırsa cevabında kitapların isimleri kesinlikle yazsın.\n\nEğer kullanıcı “stok düşür veya arttır” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nSonra o id'lerdeki kitaplar için Update a document çağır ve sadece stoklarını güncelle.\n\nEğer kullanıcı “indirimi kaldır” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nDaha sonra o id'lerdeki kitapların realprice'ına geri döndür.\nSonra o id'lerdeki kitaplar için Update a document çağır ve sadece fiyatını güncelle.\n\n\n\nÖnemli!\nZaten indirimde olan bir kitaba bir daha indirim yapma!\n\n\nEğer kullanıcı “kitap sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<log_id>\"\n  }\n}\n\nKONTROL İŞLEMLERİ\n\nStok Kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nÖnce Get many documents ile kitapları çek\nEğer stoku 5 veya altında olan bir kitap varsa Stock Alert başlığı ile html formatında cevap sun.\n\nİndirim günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün bir indirim günü ise:\nİlgili günün indirim_orani değerini al.\nKullanıcı tarafından seçilen kitaplara bu oranla fiyat hesaplaması yap.\nUpdate a document ile price ve status alanlarını güncelle, indirim türünü (ör. BlackFriday, CyberMonday) etikete ekle.\n\nİndirim bitiş günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün indirim günü değil ve kitapların indirim türü özel gün indirimi ise:\nKitapların eski fiyatlarını geri hesapla.\nUpdate a document ile price ve status alanlarını güncelle, indirim etiketi kaldır.\nEğer kitapların indirim türü normal (standart) indirim ise, hiçbir işlem yapılmaz.\n\nKullanıcı mesajı: {{ $('Admin Webhook').item.json.body.message }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        368,
+        48
+      ],
+      "id": "9a6f9d77-466d-44b1-aea6-0c88518441eb",
+      "name": "Admin Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1216,
+        256
+      ],
+      "id": "86f6ba76-c8ae-4604-b778-fc85461cdaa9",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ns5lHh7zauit6VGY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://localhost:5678/mcp/elastic",
+        "serverTransport": "httpStreamable",
+        "include": "selected",
+        "includeTools": [
+          "Get_many_documents_in_Elasticsearch",
+          "Get_a_document_in_Elasticsearch",
+          "Get_an_index_in_Elasticsearch",
+          "Delete_a_document_in_Elasticsearch",
+          "Update_a_document_in_carts",
+          "Create_a_document_in_carts",
+          "Create_a_document_in_wishlist"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        1584,
+        256
+      ],
+      "id": "0387e75e-fa75-4c05-92c5-2c66a337c3fb",
+      "name": "MCP Client2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        64
+      ],
+      "id": "8cf0ba87-3da2-49fa-abe3-eb2ddfc9e6ca",
+      "name": "Date & Time2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rol:  \nSen bir kitap dükkanı yardımcısısın. Elasticsearch `bookstore` indeksindeki kayıtları incele, kullanıcının mesajına göre ona uygun bir cevap ver.  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.\n2. Tüm kitapları listelemek için: **Get many documents**\n3. Kullanıcının isteğine göre kitap önerisi , indrimdeki ürünleri gösterme tarzında aksiyonlar al. Kitaplarımız arasında olmayan kitap önerme.\n4. Eğer kullanıcı bir kitap getirmeni veya indirim soruyorsa bütün kitapları listele ve uygun seçenekleri kendin filtreleyip kullanıcıya sun.\n5. Eğer kullanıcı senden kitabı sepete eklemeni istiyorsa **Get many documents** ile `carts` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile sepetteki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer sepette yoksa\n\ncreate a document in carts ile:  \n   {\n     \"tool\": \"Create a document in carts\",\n     \"params\": {\n       \"index\": \"carts\",\n       \"document_body\": {\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\",\n        \"productId\": \"eklenmesi isteyen kitap idsi\",\n        \"quantity\": 1\n       }\n     }\n   }\n\nEğer sepette kitap varsa \nupdate a document in carts ile:\n{\n  \"tool\": \"Update a document in carts\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\",\n    \"document_body\": {\n      \"quantity\": Kullanıcı sayı belirtmediyse şuanki değere 1 ekle , belirtti ise o sayıya göre güncelle (integer)\n    }\n  }\n}\n\n\n6.kullanıcı sepetten kitabı silmek isterse **Get many documents** ile `carts` indexindeki dosyalarını silinmek istenen kitabın id'sinin olduğu cart itemini bul ve id'sini ezberle.\nEğer kullanıcı “kitabı sepette sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\"\n  }\n}\n\n7. İstek listesine eklemeni isterse **Get many documents** ile `wishlists` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile istek listesindeki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer istek listesinde yoksa ekle varsa ekleme yapma.\n\ncreate a document ile:  \n   {\n     \"tool\": \"Create a document in wishlist\",\n     \"params\": {\n       \"index\": \"wishlists\",\n       \"document_body\": {\n          \"productId\": \"eklenmesi isteyen kitap idsi\",\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\"\n       }\n     }\n   }\n\nEğer kullanıcı “kitabı istek listesinden sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"wishlists\",\n    \"id\": \"<wishlistitem_id>\"\n  }\n}\n\nCevabını HTML formatında yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\nÇok abartma ama nazik ol. Cevap sonrası \"İyi Okumalar Dileriz\" tarzında nazik eklemeler olsun.\n\n\nKullanıcı mesajı: {{ $('User Webhook').item.json.body.message }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1328,
+        64
+      ],
+      "id": "2cd93668-2594-4968-9e6c-dee7cf337ed6",
+      "name": "Kullanıcı Agent"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "user-chat-bot",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        960,
+        64
+      ],
+      "id": "864a35cc-8bc0-4e3c-b070-4dd8cc631c40",
+      "name": "User Webhook",
+      "webhookId": "2fa39f64-48e0-434f-bbe3-88ba79dc3e1f"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chat-bot",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        32,
+        48
+      ],
+      "id": "b47d900e-5717-4fde-99d6-e331c3104ddb",
+      "name": "Admin Webhook",
+      "webhookId": "2fa39f64-48e0-434f-bbe3-88ba79dc3e1f"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"reply\": \"{{ $json.output.replace(/\\n/g, ' ').replace(/\"/g, '\\\\\"') }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        688,
+        48
+      ],
+      "id": "8b5baadc-e79a-4538-9677-903581d9e9d9",
+      "name": "Respond to Admin Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"reply\": \"{{ $json.output.replace(/\\n/g, ' ').replace(/\"/g, '\\\\\"') }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1632,
+        64
+      ],
+      "id": "e34479b3-fe5d-4488-8e67-c6a7cf07fed3",
+      "name": "Respond to User Webhook"
+    },
+    {
+      "parameters": {
+        "sendTo": "yusufcelebi100@gmail.com",
+        "subject": "Stok Azalması",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -96,
+        464
+      ],
+      "id": "5140c1ae-e3d8-4a6b-a379-d309e2150d51",
+      "name": "Rapor Maili",
+      "webhookId": "547a8b97-1c31-4501-ad4a-4b28d4f229dd",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jSrx4zR4XZ5DiQPy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('User Webhook').item.json.body.currentuserId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        1360,
+        256
+      ],
+      "id": "7dfd8a15-77e2-4ba8-87ec-4a6262eb4666",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "zx1q1omopLSlnLGu",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Admin Webhook').item.json.body.admin }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        432,
+        240
+      ],
+      "id": "9e01a1ff-55a2-4dc0-8ed9-0731ca687192",
+      "name": "Postgres Chat Memory1",
+      "credentials": {
+        "postgres": {
+          "id": "zx1q1omopLSlnLGu",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.currentDate }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -368,
+        656
+      ],
+      "id": "b5ac7142-3cec-4a35-a0e5-4607a403832b",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues1_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues1_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues2_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues2_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues3_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues3_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues4_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues4_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues5_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues5_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues6_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues6_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues7_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues7_Field_Value', ``, 'string') }}"
+            }
+          ]
+        },
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        64
+      ],
+      "id": "c6e34789-f06c-42e6-a7a1-c3af3db1c879",
+      "name": "Create a document in bookstore",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "documentId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Document_ID', ``, 'string') }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues1_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues1_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues2_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues2_Field_Value', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -32
+      ],
+      "id": "a88f08e6-dbc6-4f0d-9b4a-4b4676dcba86",
+      "name": "Update a document in bookstore",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues5_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues5_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues6_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues6_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues7_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues7_Field_Value', ``, 'string') }}"
+            }
+          ]
+        },
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        64
+      ],
+      "id": "420a4b0a-8377-42ad-a844-2d853594d741",
+      "name": "Create a document in carts",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "documentId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Document_ID', ``, 'string') }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Value', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        256
+      ],
+      "id": "edd47652-18d2-4db3-a0b7-fac8e0aee7bd",
+      "name": "Update a document in carts",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "indexId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Index_ID', ``, 'string') }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues5_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues5_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues6_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues6_Field_Value', ``, 'string') }}"
+            },
+            {
+              "fieldId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues7_Field_Name', ``, 'string') }}",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues7_Field_Value', ``, 'string') }}"
+            }
+          ]
+        },
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearchTool",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -16
+      ],
+      "id": "4f4de43c-73ca-46f0-a4d2-4c542786c27e",
+      "name": "Create a document in wishlist",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "Q3syOnFBQIPUo4HX",
+          "name": "Project's Elastic"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        912,
+        656
+      ],
+      "id": "ff14085c-9d7a-4414-acfa-367dd4a835bd",
+      "name": "Google Gemini Chat Model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ns5lHh7zauit6VGY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://localhost:5678/mcp/elastic",
+        "serverTransport": "httpStreamable",
+        "include": "selected",
+        "includeTools": [
+          "Get_a_document_in_Elasticsearch"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        656
+      ],
+      "id": "0f35236b-632f-4b2c-8a53-99182eb14921",
+      "name": "MCP Client3"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Kullanıcı Kontrol').item.json.output }}",
+        "subject": "İndirim",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1344,
+        448
+      ],
+      "id": "c14e07e0-e507-4d30-b43f-3534e79ef755",
+      "name": "İndirim Maili",
+      "webhookId": "547a8b97-1c31-4501-ad4a-4b28d4f229dd",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jSrx4zR4XZ5DiQPy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        368,
+        640
+      ],
+      "id": "8e4a3398-72b4-4fa4-a493-331332885a7a",
+      "name": "Google Gemini Chat Model4",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ns5lHh7zauit6VGY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://localhost:5678/mcp/elastic",
+        "serverTransport": "httpStreamable",
+        "include": "selected",
+        "includeTools": [
+          "Get_many_documents_in_Elasticsearch",
+          "Get_a_document_in_Elasticsearch"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        640
+      ],
+      "id": "bbaede1a-e9d6-4c36-a486-b41b981e5f03",
+      "name": "MCP Client4"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rol:  \nSen bir istek listesi indirim kontrolcüsüsün. Elasticsearch `bookstore` , `wishlists` ve `users` indeksindeki kayıtları incele, wishlist'teki bir kitap indirimde ise html formatında bir bilgilendirme yap.\n\n1. Kitabı listelemek için: **Get a document in Elasticsearch** \"index\": \"bookstore\" \"Document ID\": {{ $json.body.productId }}\n\n2. Eğer kitap id'si değil de kitabın ismi gelirse **Get many documents** \"index\": \"bookstore\" ile kitabı bul ve id'sini ezberle.\n\n3. İstek listelerini listelemek için: **Get many documents** \"index\": \"wishlists\"\n\n4. Kullanıcı bilgilerini listelemek için: **Get many documents** \"index\": \"users\"\n\n5. Eğer bu kitap bir kullanıcı veya kullanıcıların istek listesinde ise cevap olarak kitabın olduğu istek listesindeki kullanıcının mail'ini users index'inden al ve cevap olarak sadece kullanıcı mail'ini yaz , eğer birden fazla kullanıcı varsa araya virgül koyarak bütün mailleri yaz. Başka hiçbir şey ekleme.\n\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        464
+      ],
+      "id": "7a60db76-6c96-476c-bdf0-db1d8da66525",
+      "name": "Kullanıcı Kontrol"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "07bf037d-a1cb-4f40-9662-aa9bbe58d98f",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "@gmail.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        720,
+        464
+      ],
+      "id": "bfa07d3c-5588-48be-8110-d02a6495eb1b",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rol:  \nSen bir istek listesi indirim kontrolcüsüsün. Elasticsearch `bookstore` ve `wishlist` indeksindeki kayıtları incele, wishlist'teki bir kitap indirimde ise html formatında bir bilgilendirme yap.\n\n1. Kitabı listelemek için: **Get a document in Elasticsearch** \"index\": \"bookstore\" \"Document ID\": {{ $('Kontrol Webhook').item.json.body.productId }}\n\n2. Gelen kitap için 'İstediğin Kitap İndirimde' başlığı ile bir html cevabı yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\nHTML biraz cafcaflı olsun . Güzel gözüksün.\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        944,
+        448
+      ],
+      "id": "7582d6cc-281e-494e-94b9-535f93215017",
+      "name": "İndirim yazıcı"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "discount",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        464
+      ],
+      "id": "62578d7e-86bf-48a8-98d3-8fb327ffc18b",
+      "name": "Kontrol Webhook",
+      "webhookId": "2fa39f64-48e0-434f-bbe3-88ba79dc3e1f"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Admin Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "Admin Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a document in Elasticsearch": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many documents in Elasticsearch": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a document in Elasticsearch": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get an index in Elasticsearch": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Admin Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Günlük Trigger": {
+      "main": [
+        [
+          {
+            "node": "Date & Time1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Kontrol Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Kontrol Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time1": {
+      "main": [
+        [
+          {
+            "node": "Kontrol Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kontrol Agent": {
+      "main": [
+        [
+          {
+            "node": "Rapor Maili",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Admin Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Admin Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Kullanıcı Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Kullanıcı Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time2": {
+      "main": [
+        [
+          {
+            "node": "Kullanıcı Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kullanıcı Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to User Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Webhook": {
+      "main": [
+        [
+          {
+            "node": "Date & Time2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Admin Webhook": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to User Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Kullanıcı Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Admin Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Kontrol Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a document in bookstore": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document in bookstore": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a document in carts": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document in carts": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a document in wishlist": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "İndirim yazıcı",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client3": {
+      "ai_tool": [
+        [
+          {
+            "node": "İndirim yazıcı",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Kullanıcı Kontrol",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client4": {
+      "ai_tool": [
+        [
+          {
+            "node": "Kullanıcı Kontrol",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kullanıcı Kontrol": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "İndirim yazıcı",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "İndirim yazıcı": {
+      "main": [
+        [
+          {
+            "node": "İndirim Maili",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kontrol Webhook": {
+      "main": [
+        [
+          {
+            "node": "Kullanıcı Kontrol",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Admin Webhook": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9e08287a-1772-46e8-8641-895a11fb167c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3826b8abe95aa479768a0aa9a89abea8203bc60a19ade533b9786208f8ce2f0a"
+  },
+  "id": "ZtdJxwkaZpBIXzmN",
+  "tags": []
+}
