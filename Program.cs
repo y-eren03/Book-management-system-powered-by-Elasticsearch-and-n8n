@@ -162,8 +162,11 @@ app.MapPost("/add-book", async (IProductRepository repo, HttpContext context) =>
         Title = form["title"]!,
         Author = form["author"]!,
         Price = decimal.TryParse(form["price"], out decimal price) ? price : 0,
+        RealPrice = price,
         Category = form["category"]!,
         Stock = decimal.TryParse(form["stock"], out decimal stock) ? stock : 0,
+        discountrate = 0,
+        İncreaseRate = 0
 
     };
 
