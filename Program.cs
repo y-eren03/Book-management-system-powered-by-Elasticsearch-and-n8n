@@ -614,6 +614,7 @@ app.MapPost("/api/wishlist/add", async (HttpContext ctx, IWishlistRepository wis
 
     var form = await ctx.Request.ReadFormAsync();
     var productId = form["productId"].ToString();
+    var productTitle = form["productTitle"].ToString();
 
     
     var existingItem = await wishlistRepo.GetWishlistItemByProductIdAsync(userId, productId);
@@ -628,6 +629,7 @@ app.MapPost("/api/wishlist/add", async (HttpContext ctx, IWishlistRepository wis
     {
         UserId = userId,
         ProductId = productId,
+        ProductTitle = productTitle
     };
 
     await wishlistRepo.AddToWishlistAsync(item);
@@ -1343,7 +1345,7 @@ function displayBooks(books) {
                 ${book.discountrate ? `<div class="discount-info">%${book.discountrate} İndirim</div>` : ''}
             </div>
             <div class="card-actions"> 
-            <button class="btn btn-primary" onclick="addToWishlist('${book.id}')">İstek Listesine Ekle</button>
+            <button class="btn btn-primary" onclick="addToWishlist('${book.id}' ,'${escapeHtml(book.title)}')">İstek Listesine Ekle</button>
             <button class="btn btn-secondary" onclick="addToCart('${book.id}', 1)">Sepete Ekle</button> 
             <button class="btn btn-third" onclick="buy('${escapeHtml(book.title)}')">Satın Al</button> 
             </div>
@@ -1548,11 +1550,12 @@ function setupRealTimeSearch() {
     });
 }
 
-async function addToWishlist(productId) {
+async function addToWishlist(productId , productTitle) {
     try {
         const formData = new FormData();
         formData.append('productId', productId);
-        
+        formData.append('productTitle', productTitle);
+
         const response = await fetch('/api/wishlist/add', {
             method: 'POST',
             body: formData,

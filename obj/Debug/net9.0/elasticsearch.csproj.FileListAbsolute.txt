@@ -35,4 +35,5 @@ C:\Users\yusuf\OneDrive\Masaüstü\Masaüstü\APİ\elasticsearch\obj\Debug\net9.
 C:\Users\yusuf\OneDrive\Masaüstü\Masaüstü\APİ\elasticsearch\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\yusuf\OneDrive\Masaüstü\Masaüstü\APİ\elasticsearch\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\yusuf\OneDrive\Masaüstü\Masaüstü\APİ\elasticsearch\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\yusuf\OneDrive\Masaüstü\Masaüstü\APİ\elasticsearch\obj\Debug\net9.0\elasticsearch.sourcelink.json
 C:\Users\yusuf\OneDrive\Masaüstü\Masaüstü\APİ\elasticsearch\bin\Debug\net9.0\BOOKSTORE WORKFLOW.json

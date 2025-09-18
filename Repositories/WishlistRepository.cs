@@ -27,7 +27,8 @@ public class WishlistRepository : IWishlistRepository
             .Query(q => q.Bool(b => b
                 .Must(
                     m => m.Term(t => t.Field(f => f.UserId.Suffix("keyword")).Value(item.UserId)),
-                    m => m.Term(t => t.Field(f => f.ProductId.Suffix("keyword")).Value(item.ProductId))
+                    m => m.Term(t => t.Field(f => f.ProductId.Suffix("keyword")).Value(item.ProductId)),
+                    m => m.Term(t => t.Field(f => f.ProductTitle.Suffix("keyword")).Value(item.ProductTitle))
                 )
             ))
             .Size(1)
