@@ -8,8 +8,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        256,
-        240
+        224,
+        256
       ],
       "id": "c05e3088-a9d6-4a02-aea7-ce02637e381d",
       "name": "Google Gemini Chat Model",
@@ -37,8 +37,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.1,
       "position": [
-        624,
-        240
+        592,
+        256
       ],
       "id": "8c71b319-3fee-4562-8fdf-83b01ba597d7",
       "name": "MCP Client"
@@ -50,8 +50,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
       "typeVersion": 2,
       "position": [
-        -624,
-        64
+        144,
+        544
       ],
       "id": "048a0150-c125-4f1c-8a0b-74220d7c8332",
       "name": "MCP Server Trigger",
@@ -66,8 +66,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -736,
-        224
+        32,
+        704
       ],
       "id": "b92be6e8-8c35-451e-84fb-7e0054896283",
       "name": "Get a document in Elasticsearch",
@@ -88,8 +88,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -592,
-        224
+        176,
+        704
       ],
       "id": "607af752-571f-4c54-bba2-e43194874a79",
       "name": "Get many documents in Elasticsearch",
@@ -110,8 +110,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -400,
-        272
+        352,
+        720
       ],
       "id": "99d41b91-a7aa-4a37-94e0-bebb92ed0f83",
       "name": "Delete a document in Elasticsearch",
@@ -132,8 +132,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -944,
-        208
+        -112,
+        688
       ],
       "id": "290fb642-313b-4050-bd32-77e083c543d5",
       "name": "Get an index in Elasticsearch",
@@ -151,8 +151,8 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        208,
-        48
+        176,
+        64
       ],
       "id": "23d8386c-4255-4934-af30-4355377d4838",
       "name": "Date & Time"
@@ -168,8 +168,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -784,
-        464
+        -912,
+        496
       ],
       "id": "0bc5a5ed-9478-40fc-9b33-ea501363f39d",
       "name": "Günlük Trigger"
@@ -181,8 +181,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -544,
-        656
+        -672,
+        688
       ],
       "id": "91ec06b1-ace7-41fb-a46f-f630a377315f",
       "name": "Google Gemini Chat Model1",
@@ -210,8 +210,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.1,
       "position": [
-        -192,
-        656
+        -320,
+        688
       ],
       "id": "4357f310-a4e0-4dbf-b355-e0e921ff3a20",
       "name": "MCP Client1"
@@ -223,8 +223,8 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        -592,
-        464
+        -720,
+        496
       ],
       "id": "3f53c98d-1716-4849-90a3-0d3b795bfbf3",
       "name": "Date & Time1"
@@ -238,8 +238,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        -432,
-        464
+        -560,
+        496
       ],
       "id": "bf739e95-8c11-4998-a48e-e22314cefcda",
       "name": "Kontrol Agent"
@@ -247,14 +247,14 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Rol:  \nSen bir MCP AI analizcisisin. Elasticsearch `bookstore` indeksindeki kayıtları incele, sistem metriklerini değerlendir, senaryolara göre otomatik aksiyon al (gerekirse doküman sil/güncelle/ekle) .  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.  \n2. Mesaja göre uygun tool’u seç:  \n   - Tüm kitapları listelemek için: **Get many documents**  \n   - Yeni kitap eklemek için: **Create a document**  \n   - Kitap güncellemek (fiyat/indirim/stock): **Update a document**  \n   - Kitap silmek için: **Delete a document**  \n\nCevabını HTML formatında yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\n\n\ncreate a document kullanırken:  \n   {\n     \"tool\": \"Create a document\",\n     \"params\": {\n       \"index\": \"bookstore\",\n       \"document_body\": {\n         \"author\": \"title'a göre sen doldur\",\n         \"category\": \"title'a göre sen doldur\",\n         \"title\": \"kullanıcı mesajındaki başlık\",\n         \"price\": \"kullanıcı mesajındaki fiyat veya indirime göre hesaplanan\",\n         \"stock\": \"kullanıcı mesajındaki stok\" ,\n          \"discountrate\": \"0 olucak daha sonra kullanım için\" ,\n          \"İncreaseRate\": \"0 olucak daha sonra kullanım için\" ,\n          \"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n       }\n     }\n   }\n\nupdate a document kullanırken:\n{\n  \"tool\": \"Update a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<book_id>\",\n    \"document_body\": {\n      \"price\": \"yeni fiyat veya indirim sonrası değer\",\n      \"stock\": \"yeni stok\",\n      \"discountRate\": \"indirim yüzdesi etiketi eğer varsa\" ,\n        \"İncreaseRate\": \"zam yüzdesi etiketi eğer varsa\" ,\n      \"status\": \"indirime giren kitaplar için indirim türü (ör. Normal, BlackFriday)\",\n\"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n    }\n  }\n}\n\n\nEğer kullanıcı “indirim yap veya zam yap” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nDaha sonra o id'lerdeki kitaplar için yeni fiyatı hesapla (%X indirim).\nSonra o id'lerdeki kitaplar için Update a document çağır ve fiyatını güncelle.\nEğer bir kitaba veya kitaplara indirim yapılırsa cevabında kitapların isimleri kesinlikle yazsın.\n\nEğer kullanıcı “stok düşür veya arttır” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nSonra o id'lerdeki kitaplar için Update a document çağır ve sadece stoklarını güncelle.\n\nEğer kullanıcı “indirimi kaldır” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nDaha sonra o id'lerdeki kitapların realprice'ına geri döndür.\nSonra o id'lerdeki kitaplar için Update a document çağır ve sadece fiyatını güncelle.\n\n\n\nÖnemli!\nZaten indirimde olan bir kitaba bir daha indirim yapma!\n\n\nEğer kullanıcı “kitap sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<log_id>\"\n  }\n}\n\nKONTROL İŞLEMLERİ\n\nStok Kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nÖnce Get many documents ile kitapları çek\nEğer stoku 5 veya altında olan bir kitap varsa Stock Alert başlığı ile html formatında cevap sun.\n\nİndirim günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün bir indirim günü ise:\nİlgili günün indirim_orani değerini al.\nKullanıcı tarafından seçilen kitaplara bu oranla fiyat hesaplaması yap.\nUpdate a document ile price ve status alanlarını güncelle, indirim türünü (ör. BlackFriday, CyberMonday) etikete ekle.\n\nİndirim bitiş günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün indirim günü değil ve kitapların indirim türü özel gün indirimi ise:\nKitapların eski fiyatlarını geri hesapla.\nUpdate a document ile price ve status alanlarını güncelle, indirim etiketi kaldır.\nEğer kitapların indirim türü normal (standart) indirim ise, hiçbir işlem yapılmaz.\n\nKullanıcı mesajı: {{ $('Admin Webhook').item.json.body.message }}",
+        "text": "=Rol:  \nSen bir MCP AI analizcisisin. Elasticsearch `bookstore` indeksindeki kayıtları incele, sistem metriklerini değerlendir, senaryolara göre otomatik aksiyon al (gerekirse doküman sil/güncelle/ekle) .  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.  \n2. Mesaja göre uygun tool’u seç:  \n   - Tüm kitapları listelemek için: **Get many documents**  \n   - Yeni kitap eklemek için: **Create a document**  \n   - Kitap güncellemek (fiyat/indirim/stock): **Update a document**  \n   - Kitap silmek için: **Delete a document**  \n\nCevabını HTML formatında yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\n\n\ncreate a document kullanırken:  \n   {\n     \"tool\": \"Create a document\",\n     \"params\": {\n       \"index\": \"bookstore\",\n       \"document_body\": {\n         \"author\": \"title'a göre sen doldur\",\n         \"category\": \"title'a göre sen doldur\",\n         \"title\": \"kullanıcı mesajındaki başlık\",\n         \"price\": \"kullanıcı mesajındaki fiyat veya indirime göre hesaplanan\",\n         \"stock\": \"kullanıcı mesajındaki stok\" ,\n          \"discountrate\": \"0 olucak daha sonra kullanım için\" ,\n          \"İncreaseRate\": \"0 olucak daha sonra kullanım için\" ,\n          \"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n       }\n     }\n   }\n\nupdate a document kullanırken:\n{\n  \"tool\": \"Update a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<book_id>\",\n    \"document_body\": {\n      \"price\": \"yeni fiyat veya indirim sonrası değer\",\n      \"stock\": \"yeni stok\",\n      \"discountRate\": \"indirim yüzdesi etiketi eğer varsa\" ,\n        \"İncreaseRate\": \"zam yüzdesi etiketi eğer varsa\" ,\n      \"status\": \"indirime giren kitaplar için indirim türü (ör. Normal, BlackFriday)\",\n\"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n    }\n  }\n}\n\n\nEğer kullanıcı “indirim yap veya zam yap” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nDaha sonra o id'lerdeki kitaplar için yeni fiyatı hesapla (%X indirim).\nSonra o id'lerdeki kitaplar için Update a document çağır ve fiyatını güncelle.\nEğer bir kitaba veya kitaplara indirim yapılırsa cevabında kitapların isimlerini ve indirim yapıldı ifadesini kesinlikle yaz.\n\nEğer kullanıcı “stok düşür veya arttır” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nSonra o id'lerdeki kitaplar için Update a document çağır ve sadece stoklarını güncelle.\n\nEğer kullanıcı “indirimi kaldır” diyorsa:\nÖnce Get many documents ile kitapları çek.\nSonra gelen kitaplardan kullanıcı kriterlerine uyanların id'lerini ezberle.\nDaha sonra o id'lerdeki kitapların realprice'ına geri döndür.\nSonra o id'lerdeki kitaplar için Update a document çağır ve sadece fiyatını güncelle.\n\n\n\nÖnemli!\nZaten indirimde olan bir kitaba bir daha indirim yapma!\n\n\nEğer kullanıcı “kitap sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<log_id>\"\n  }\n}\n\nKONTROL İŞLEMLERİ\n\nStok Kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nÖnce Get many documents ile kitapları çek\nEğer stoku 5 veya altında olan bir kitap varsa Stock Alert başlığı ile html formatında cevap sun.\n\nİndirim günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün bir indirim günü ise:\nİlgili günün indirim_orani değerini al.\nKullanıcı tarafından seçilen kitaplara bu oranla fiyat hesaplaması yap.\nUpdate a document ile price ve status alanlarını güncelle, indirim türünü (ör. BlackFriday, CyberMonday) etikete ekle.\n\nİndirim bitiş günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün indirim günü değil ve kitapların indirim türü özel gün indirimi ise:\nKitapların eski fiyatlarını geri hesapla.\nUpdate a document ile price ve status alanlarını güncelle, indirim etiketi kaldır.\nEğer kitapların indirim türü normal (standart) indirim ise, hiçbir işlem yapılmaz.\n\nKullanıcı mesajı: {{ $('Admin Webhook').item.json.body.message }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        368,
-        48
+        336,
+        64
       ],
       "id": "9a6f9d77-466d-44b1-aea6-0c88518441eb",
       "name": "Admin Agent"
@@ -266,8 +266,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        1216,
-        256
+        -656,
+        240
       ],
       "id": "86f6ba76-c8ae-4604-b778-fc85461cdaa9",
       "name": "Google Gemini Chat Model2",
@@ -296,8 +296,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.1,
       "position": [
-        1584,
-        256
+        -288,
+        240
       ],
       "id": "0387e75e-fa75-4c05-92c5-2c66a337c3fb",
       "name": "MCP Client2"
@@ -309,8 +309,8 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        1168,
-        64
+        -704,
+        48
       ],
       "id": "8cf0ba87-3da2-49fa-abe3-eb2ddfc9e6ca",
       "name": "Date & Time2"
@@ -318,14 +318,14 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Rol:  \nSen bir kitap dükkanı yardımcısısın. Elasticsearch `bookstore` indeksindeki kayıtları incele, kullanıcının mesajına göre ona uygun bir cevap ver.  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.\n2. Tüm kitapları listelemek için: **Get many documents**\n3. Kullanıcının isteğine göre kitap önerisi , indrimdeki ürünleri gösterme tarzında aksiyonlar al. Kitaplarımız arasında olmayan kitap önerme.\n4. Eğer kullanıcı bir kitap getirmeni veya indirim soruyorsa bütün kitapları listele ve uygun seçenekleri kendin filtreleyip kullanıcıya sun.\n5. Eğer kullanıcı senden kitabı sepete eklemeni istiyorsa **Get many documents** ile `carts` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile sepetteki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer sepette yoksa\n\ncreate a document in carts ile:  \n   {\n     \"tool\": \"Create a document in carts\",\n     \"params\": {\n       \"index\": \"carts\",\n       \"document_body\": {\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\",\n        \"productId\": \"eklenmesi isteyen kitap idsi\",\n        \"quantity\": 1\n       }\n     }\n   }\n\nEğer sepette kitap varsa \nupdate a document in carts ile:\n{\n  \"tool\": \"Update a document in carts\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\",\n    \"document_body\": {\n      \"quantity\": Kullanıcı sayı belirtmediyse şuanki değere 1 ekle , belirtti ise o sayıya göre güncelle (integer)\n    }\n  }\n}\n\n\n6.kullanıcı sepetten kitabı silmek isterse **Get many documents** ile `carts` indexindeki dosyalarını silinmek istenen kitabın id'sinin olduğu cart itemini bul ve id'sini ezberle.\nEğer kullanıcı “kitabı sepette sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\"\n  }\n}\n\n7. İstek listesine eklemeni isterse **Get many documents** ile `wishlists` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile istek listesindeki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer istek listesinde yoksa ekle varsa ekleme yapma.\n\ncreate a document ile:  \n   {\n     \"tool\": \"Create a document in wishlist\",\n     \"params\": {\n       \"index\": \"wishlists\",\n       \"document_body\": {\n          \"productId\": \"eklenmesi isteyen kitap idsi\",\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\"\n       }\n     }\n   }\n\nEğer kullanıcı “kitabı istek listesinden sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"wishlists\",\n    \"id\": \"<wishlistitem_id>\"\n  }\n}\n\nCevabını HTML formatında yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\nÇok abartma ama nazik ol. Cevap sonrası \"İyi Okumalar Dileriz\" tarzında nazik eklemeler olsun.\n\n\nKullanıcı mesajı: {{ $('User Webhook').item.json.body.message }}",
+        "text": "=Rol:  \nSen bir kitap dükkanı yardımcısısın. Elasticsearch `bookstore` indeksindeki kayıtları incele, kullanıcının mesajına göre ona uygun bir cevap ver.  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.\n2. Tüm kitapları listelemek için: **Get many documents**\n3. Kullanıcının isteğine göre kitap önerisi , indrimdeki ürünleri gösterme tarzında aksiyonlar al. Kitaplarımız arasında olmayan kitap önerme.\n4. Eğer kullanıcı bir kitap getirmeni veya indirim soruyorsa bütün kitapları listele ve uygun seçenekleri kendin filtreleyip kullanıcıya sun.\n5. Eğer kullanıcı senden kitabı sepete eklemeni istiyorsa **Get many documents** ile `carts` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile sepetteki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer sepette yoksa\n\ncreate a document in carts ile:  \n   {\n     \"tool\": \"Create a document in carts\",\n     \"params\": {\n       \"index\": \"carts\",\n       \"document_body\": {\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\",\n        \"productId\": \"eklenmesi isteyen kitap idsi\",\n        \"quantity\": 1\n       }\n     }\n   }\n\nEğer sepette kitap varsa \nupdate a document in carts ile:\n{\n  \"tool\": \"Update a document in carts\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\",\n    \"document_body\": {\n      \"quantity\": Kullanıcı sayı belirtmediyse şuanki değere 1 ekle , belirtti ise o sayıya göre güncelle (integer)\n    }\n  }\n}\n\n\n6.kullanıcı sepetten kitabı silmek isterse **Get many documents** ile `carts` indexindeki dosyalarını silinmek istenen kitabın id'sinin olduğu cart itemini bul ve id'sini ezberle.\nEğer kullanıcı “kitabı sepette sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\"\n  }\n}\n\n7. İstek listesine eklemeni isterse **Get many documents** ile `wishlists` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile istek listesindeki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer istek listesinde yoksa ekle varsa ekleme yapma.\n\ncreate a document ile:  \n   {\n     \"tool\": \"Create a document in wishlist\",\n     \"params\": {\n       \"index\": \"wishlists\",\n       \"document_body\": {\n          \"productId\": \"eklenmesi isteyen kitap idsi\",\n           \"productTitle\": \"eklenmesi isteyen kitap ismi\" ,\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\"\n       }\n     }\n   }\n\nEğer kullanıcı “kitabı istek listesinden sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"wishlists\",\n    \"id\": \"<wishlistitem_id>\"\n  }\n}\n\nCevabını HTML formatında yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\nÇok abartma ama nazik ol. Cevap sonrası \"İyi Okumalar Dileriz\" tarzında nazik eklemeler olsun.\n\n\nKullanıcı mesajı: {{ $('User Webhook').item.json.body.message }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        1328,
-        64
+        -544,
+        48
       ],
       "id": "2cd93668-2594-4968-9e6c-dee7cf337ed6",
       "name": "Kullanıcı Agent"
@@ -340,8 +340,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        960,
-        64
+        -912,
+        48
       ],
       "id": "864a35cc-8bc0-4e3c-b070-4dd8cc631c40",
       "name": "User Webhook",
@@ -357,8 +357,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        32,
-        48
+        0,
+        64
       ],
       "id": "b47d900e-5717-4fde-99d6-e331c3104ddb",
       "name": "Admin Webhook",
@@ -373,8 +373,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        688,
-        48
+        608,
+        64
       ],
       "id": "8b5baadc-e79a-4538-9677-903581d9e9d9",
       "name": "Respond to Admin Webhook"
@@ -388,8 +388,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        1632,
-        64
+        -240,
+        48
       ],
       "id": "e34479b3-fe5d-4488-8e67-c6a7cf07fed3",
       "name": "Respond to User Webhook"
@@ -404,8 +404,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        -96,
-        464
+        -224,
+        496
       ],
       "id": "5140c1ae-e3d8-4a6b-a379-d309e2150d51",
       "name": "Rapor Maili",
@@ -425,8 +425,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        1360,
-        256
+        -512,
+        240
       ],
       "id": "7dfd8a15-77e2-4ba8-87ec-4a6262eb4666",
       "name": "Postgres Chat Memory",
@@ -445,8 +445,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        432,
-        240
+        400,
+        256
       ],
       "id": "9e01a1ff-55a2-4dc0-8ed9-0731ca687192",
       "name": "Postgres Chat Memory1",
@@ -465,8 +465,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        -368,
-        656
+        -496,
+        688
       ],
       "id": "b5ac7142-3cec-4a35-a0e5-4607a403832b",
       "name": "Simple Memory"
@@ -517,8 +517,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -896,
-        64
+        -32,
+        560
       ],
       "id": "c6e34789-f06c-42e6-a7a1-c3af3db1c879",
       "name": "Create a document in bookstore",
@@ -555,8 +555,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -720,
-        -32
+        64,
+        448
       ],
       "id": "a88f08e6-dbc6-4f0d-9b4a-4b4676dcba86",
       "name": "Update a document in bookstore",
@@ -593,8 +593,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -208,
-        64
+        528,
+        544
       ],
       "id": "420a4b0a-8377-42ad-a844-2d853594d741",
       "name": "Create a document in carts",
@@ -623,8 +623,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -176,
-        256
+        544,
+        704
       ],
       "id": "edd47652-18d2-4db3-a0b7-fac8e0aee7bd",
       "name": "Update a document in carts",
@@ -661,8 +661,8 @@
       "type": "n8n-nodes-base.elasticsearchTool",
       "typeVersion": 1,
       "position": [
-        -352,
-        -16
+        416,
+        464
       ],
       "id": "4f4de43c-73ca-46f0-a4d2-4c542786c27e",
       "name": "Create a document in wishlist",
@@ -680,8 +680,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        912,
-        656
+        1472,
+        720
       ],
       "id": "ff14085c-9d7a-4414-acfa-367dd4a835bd",
       "name": "Google Gemini Chat Model3",
@@ -704,8 +704,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.1,
       "position": [
-        1168,
-        656
+        1728,
+        720
       ],
       "id": "0f35236b-632f-4b2c-8a53-99182eb14921",
       "name": "MCP Client3"
@@ -720,8 +720,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1344,
-        448
+        1904,
+        512
       ],
       "id": "c14e07e0-e507-4d30-b43f-3534e79ef755",
       "name": "İndirim Maili",
@@ -740,8 +740,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        368,
-        640
+        928,
+        704
       ],
       "id": "8e4a3398-72b4-4fa4-a493-331332885a7a",
       "name": "Google Gemini Chat Model4",
@@ -765,8 +765,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.1,
       "position": [
-        656,
-        640
+        1216,
+        704
       ],
       "id": "bbaede1a-e9d6-4c36-a486-b41b981e5f03",
       "name": "MCP Client4"
@@ -780,8 +780,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        432,
-        464
+        992,
+        528
       ],
       "id": "7a60db76-6c96-476c-bdf0-db1d8da66525",
       "name": "Kullanıcı Kontrol"
@@ -813,8 +813,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        720,
-        464
+        1280,
+        528
       ],
       "id": "bfa07d3c-5588-48be-8110-d02a6495eb1b",
       "name": "If1"
@@ -828,8 +828,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        944,
-        448
+        1504,
+        512
       ],
       "id": "7582d6cc-281e-494e-94b9-535f93215017",
       "name": "İndirim yazıcı"
@@ -843,12 +843,207 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        144,
-        464
+        704,
+        528
       ],
       "id": "62578d7e-86bf-48a8-98d3-8fb327ffc18b",
       "name": "Kontrol Webhook",
       "webhookId": "2fa39f64-48e0-434f-bbe3-88ba79dc3e1f"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        240
+      ],
+      "id": "20c2dab0-2389-4743-b297-6b5ac0d9edf1",
+      "name": "Google Gemini Chat Model5",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ns5lHh7zauit6VGY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://localhost:5678/mcp/elastic",
+        "serverTransport": "httpStreamable",
+        "include": "selected",
+        "includeTools": [
+          "Get_many_documents_in_Elasticsearch",
+          "Get_a_document_in_Elasticsearch"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        1712,
+        224
+      ],
+      "id": "8dd9e0e5-7843-4166-ac05-efe61d4572d2",
+      "name": "MCP Client5"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Kullanıcı Kontrol for Admin İndirim').item.json.output }}",
+        "subject": "İndirim",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1904,
+        32
+      ],
+      "id": "f68fd94d-1d93-4012-a3dc-bc6027c47fd5",
+      "name": "İndirim Maili1",
+      "webhookId": "547a8b97-1c31-4501-ad4a-4b28d4f229dd",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jSrx4zR4XZ5DiQPy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        928,
+        224
+      ],
+      "id": "21108db5-c41f-4eec-845d-148cf3ae397d",
+      "name": "Google Gemini Chat Model6",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ns5lHh7zauit6VGY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://localhost:5678/mcp/elastic",
+        "serverTransport": "httpStreamable",
+        "include": "selected",
+        "includeTools": [
+          "Get_many_documents_in_Elasticsearch",
+          "Get_a_document_in_Elasticsearch"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        1184,
+        224
+      ],
+      "id": "6a94e355-a420-486b-b232-f6b6600f949e",
+      "name": "MCP Client6"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "07bf037d-a1cb-4f40-9662-aa9bbe58d98f",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "@gmail.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1280,
+        48
+      ],
+      "id": "c19b3c28-471a-49f9-b847-a44efd73e829",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rol:  \nSen bir istek listesi indirim kontrolcüsüsün. Elasticsearch `bookstore` ve `wishlist` indeksindeki kayıtları incele, wishlist'teki bir kitap indirimde ise html formatında bir bilgilendirme yap.\n\n1. Kitabın ismini mesajdan al.\nMesaj : {{ $('Admin Agent').item.json.output }}\n\n2. Kitabın ismi geldiğinde **Get many documents** \"index\": \"bookstore\" ile kitabı bul ve id'sini ezberle.\n\n3. Kitabı listelemek için: **Get a document in Elasticsearch** \"index\": \"bookstore\" \"Document ID\": \"ezberlediğin kitap id'si\"\n\n4. Gelen kitap için 'İstediğin Kitap İndirimde' başlığı ile bir html cevabı yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\nHTML biraz cafcaflı olsun . Güzel gözüksün.\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1504,
+        32
+      ],
+      "id": "e3ca4495-9e8b-4dfb-bbb5-14a90f038116",
+      "name": "İndirim yazıcı for Admin İndirim"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rol:  \nSen bir istek listesi indirim kontrolcüsüsün. Elasticsearch `bookstore` , `wishlists` ve `users` indeksindeki kayıtları incele, wishlist'teki bir kitap indirimde ise html formatında bir bilgilendirme yap.\n\n1. Kitabın ismini mesajdan al.\nMesaj : {{ $('Admin Agent').item.json.output }}\n\n2. Kitabın ismi geldiğinde **Get many documents** \"index\": \"bookstore\" ile kitabı bul ve id'sini ezberle.\n\n3. İstek listelerini listelemek için: **Get many documents** \"index\": \"wishlists\"\n\n4. Kullanıcı bilgilerini listelemek için: **Get many documents** \"index\": \"users\"\n\n5. Eğer bu kitap bir kullanıcı veya kullanıcıların istek listesinde ise cevap olarak kitabın olduğu istek listesindeki kullanıcının mail'ini users index'inden al ve cevap olarak sadece kullanıcı mail'ini yaz , eğer birden fazla kullanıcı varsa araya virgül koyarak bütün mailleri yaz. Başka hiçbir şey ekleme.\n\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        48
+      ],
+      "id": "1e6278fe-cb7b-4042-b180-f23ea4dabc7f",
+      "name": "Kullanıcı Kontrol for Admin İndirim"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "07bf037d-a1cb-4f40-9662-aa9bbe58d98f",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "indirim yapıldı",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        752,
+        64
+      ],
+      "id": "4bf9d289-9ef1-4809-8caa-0c370080fb7e",
+      "name": "If2"
     }
   ],
   "pinData": {},
@@ -1245,7 +1440,101 @@
     },
     "Respond to Admin Webhook": {
       "main": [
-        []
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "İndirim yazıcı for Admin İndirim",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client5": {
+      "ai_tool": [
+        [
+          {
+            "node": "İndirim yazıcı for Admin İndirim",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Kullanıcı Kontrol for Admin İndirim",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client6": {
+      "ai_tool": [
+        [
+          {
+            "node": "Kullanıcı Kontrol for Admin İndirim",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "İndirim yazıcı for Admin İndirim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "İndirim yazıcı for Admin İndirim": {
+      "main": [
+        [
+          {
+            "node": "İndirim Maili1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kullanıcı Kontrol for Admin İndirim": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Kullanıcı Kontrol for Admin İndirim",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -1253,7 +1542,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "9e08287a-1772-46e8-8641-895a11fb167c",
+  "versionId": "e7cad81e-fa50-4831-8baf-8c3ec70d58f8",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3826b8abe95aa479768a0aa9a89abea8203bc60a19ade533b9786208f8ce2f0a"
