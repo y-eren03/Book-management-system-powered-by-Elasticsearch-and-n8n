@@ -202,9 +202,7 @@
           "Get_a_document_in_Elasticsearch",
           "Get_an_index_in_Elasticsearch",
           "Get_many_documents_in_Elasticsearch",
-          "Create_a_document_in_bookstore",
-          "Update_a_document_in_bookstore",
-          "Delete_a_document_in_Elasticsearch"
+          "Update_a_document_in_bookstore"
         ]
       },
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
@@ -232,7 +230,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Rol:\nSen bir MCP AI analizcisisin. Elasticsearch bookstore ve indirim_gunleri indekslerindeki kayıtları incele, sistem metriklerini değerlendir ve günlük kontrolleri otomatik yap.  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.  \n2. Mesaja göre uygun tool’u seç:  \n   - Tüm kitapları listelemek için: **Get many documents**  \n   - Yeni kitap eklemek için: **Create a document**  \n   - Kitap güncellemek (fiyat/indirim/stock): **Update a document**  \n   - Kitap silmek için: **Delete a document**  \n\ncreate a document kullanırken:  \n   {\n     \"tool\": \"Create a document\",\n     \"params\": {\n       \"index\": \"bookstore\",\n       \"document_body\": {\n         \"author\": \"title'a göre sen doldur\",\n         \"category\": \"title'a göre sen doldur\",\n         \"title\": \"kullanıcı mesajındaki başlık\",\n         \"price\": \"kullanıcı mesajındaki fiyat veya indirime göre hesaplanan\",\n         \"stock\": \"kullanıcı mesajındaki stok\" ,\n          \"discountrate\": \"0 olucak daha sonra kullanım için\" ,\n          \"İncreaseRate\": \"0 olucak daha sonra kullanım için\" ,\n          \"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n       }\n     }\n   }\n\nupdate a document kullanırken:\n{\n  \"tool\": \"Update a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<book_id>\",\n    \"document_body\": {\n      \"price\": \"yeni fiyat veya indirim sonrası değer\",\n      \"stock\": \"yeni stok\",\n      \"discountRate\": \"indirim yüzdesi etiketi eğer varsa\" ,\n        \"İncreaseRate\": \"zam yüzdesi etiketi eğer varsa\" ,\n      \"status\": \"indirime giren kitaplar için indirim türü (ör. Normal, BlackFriday)\",\n\"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n    }\n  }\n}\n\n\nÖnemli!\nZaten indirimde olan bir kitaba bir daha indirim yapma!\n\n\nEğer kullanıcı “kitap sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<log_id>\"\n  }\n}\n\nKONTROL İŞLEMLERİ\n\nStok Kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nÖnce Get many documents ile kitapları çek\nEğer stoku 5 veya altında olan bir kitap varsa Stock Alert başlığı ile html formatında cevap sun.\n\nİndirim günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün bir indirim günü ise:\nİlgili günün indirim_orani değerini al.\nKullanıcı tarafından seçilen kitaplara bu oranla fiyat hesaplaması yap.\nUpdate a document ile price ve status alanlarını güncelle, indirim türünü (ör. BlackFriday, CyberMonday) etikete ekle.\n\nİndirim bitiş günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün indirim günü değil ve kitapların indirim türü özel gün indirimi ise:\nKitapların eski fiyatlarını geri hesapla.\nUpdate a document ile price ve status alanlarını güncelle, indirim etiketi kaldır.\nEğer kitapların indirim türü normal (standart) indirim ise, hiçbir işlem yapılmaz.\n\nGünlük kontrolleri yap.\nBu kontroller hakkında bir rapor yaz. \nHtml formatında gönder.",
+        "text": "=Rol:\nSen bir MCP AI analizcisisin. Elasticsearch bookstore ve indirim_gunleri indekslerindeki kayıtları incele, sistem metriklerini değerlendir ve günlük kontrolleri otomatik yap.  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.  \n2. Mesaja göre uygun tool’u seç:  \n   - Tüm kitapları listelemek için: **Get many documents**  \n   - Kitap güncellemek (fiyat/indirim/stock): **Update a document**   \n\n\nupdate a document kullanırken:\n{\n  \"tool\": \"Update a document\",\n  \"params\": {\n    \"index\": \"bookstore\",\n    \"id\": \"<book_id>\",\n    \"document_body\": {\n      \"price\": \"yeni fiyat veya indirim sonrası değer\",\n      \"stock\": \"yeni stok\",\n      \"discountRate\": \"indirim yüzdesi etiketi eğer varsa\" ,\n        \"İncreaseRate\": \"zam yüzdesi etiketi eğer varsa\" ,\n      \"status\": \"indirime giren kitaplar için indirim türü (ör. Normal, BlackFriday)\",\n\"realPrice\": \"Kitabın değiştirlemez olan ilk fiyatı\"\n    }\n  }\n}\n\n\nÖnemli!\nZaten indirimde olan bir kitaba bir daha indirim yapma!\n\n\n\nKONTROL İŞLEMLERİ\n\nStok Kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nÖnce Get many documents ile kitapları çek\nEğer stoku 5 veya altında olan bir kitap varsa Stock Alert başlığı ile html formatında cevap sun.\n\nİndirim günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün bir indirim günü ise:\nİlgili günün indirim_orani değerini al.\nKullanıcı tarafından seçilen kitaplara bu oranla fiyat hesaplaması yap.\nUpdate a document ile price ve status alanlarını güncelle, indirim türünü (ör. BlackFriday, CyberMonday) etikete ekle.\n\nİndirim bitiş günü kontrolü:\nKontrol istendiğinde kontrol etmeye başla.\nGet many documents ile indirim_gunleri indeksinden tüm indirim günlerini çek.\nGelen indirim günlerini, şu anki tarih ({{ $json.currentDate }}) ile karşılaştır.\nEğer bugün indirim günü değil ve kitapların indirim türü özel gün indirimi ise:\nKitapların eski fiyatlarını geri hesapla.\nUpdate a document ile price ve status alanlarını güncelle, indirim etiketi kaldır.\nEğer kitapların indirim türü normal (standart) indirim ise, hiçbir işlem yapılmaz.\n\nGünlük kontrolleri yap.\nBu kontroller hakkında bir rapor yaz. \nHtml formatında gönder.",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -266,7 +264,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -656,
+        -704,
         240
       ],
       "id": "86f6ba76-c8ae-4604-b778-fc85461cdaa9",
@@ -296,7 +294,7 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.1,
       "position": [
-        -288,
+        -304,
         240
       ],
       "id": "0387e75e-fa75-4c05-92c5-2c66a337c3fb",
@@ -318,7 +316,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Rol:  \nSen bir kitap dükkanı yardımcısısın. Elasticsearch `bookstore` indeksindeki kayıtları incele, kullanıcının mesajına göre ona uygun bir cevap ver.  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.\n2. Tüm kitapları listelemek için: **Get many documents**\n3. Kullanıcının isteğine göre kitap önerisi , indrimdeki ürünleri gösterme tarzında aksiyonlar al. Kitaplarımız arasında olmayan kitap önerme.\n4. Eğer kullanıcı bir kitap getirmeni veya indirim soruyorsa bütün kitapları listele ve uygun seçenekleri kendin filtreleyip kullanıcıya sun.\n5. Eğer kullanıcı senden kitabı sepete eklemeni istiyorsa **Get many documents** ile `carts` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile sepetteki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer sepette yoksa\n\ncreate a document in carts ile:  \n   {\n     \"tool\": \"Create a document in carts\",\n     \"params\": {\n       \"index\": \"carts\",\n       \"document_body\": {\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\",\n        \"productId\": \"eklenmesi isteyen kitap idsi\",\n        \"quantity\": 1\n       }\n     }\n   }\n\nEğer sepette kitap varsa \nupdate a document in carts ile:\n{\n  \"tool\": \"Update a document in carts\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\",\n    \"document_body\": {\n      \"quantity\": Kullanıcı sayı belirtmediyse şuanki değere 1 ekle , belirtti ise o sayıya göre güncelle (integer)\n    }\n  }\n}\n\n\n6.kullanıcı sepetten kitabı silmek isterse **Get many documents** ile `carts` indexindeki dosyalarını silinmek istenen kitabın id'sinin olduğu cart itemini bul ve id'sini ezberle.\nEğer kullanıcı “kitabı sepette sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\"\n  }\n}\n\n7. İstek listesine eklemeni isterse **Get many documents** ile `wishlists` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile istek listesindeki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer istek listesinde yoksa ekle varsa ekleme yapma.\n\ncreate a document ile:  \n   {\n     \"tool\": \"Create a document in wishlist\",\n     \"params\": {\n       \"index\": \"wishlists\",\n       \"document_body\": {\n          \"productId\": \"eklenmesi isteyen kitap idsi\",\n           \"productTitle\": \"eklenmesi isteyen kitap ismi\" ,\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\"\n       }\n     }\n   }\n\nEğer kullanıcı “kitabı istek listesinden sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"wishlists\",\n    \"id\": \"<wishlistitem_id>\"\n  }\n}\n\nCevabını HTML formatında yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\nÇok abartma ama nazik ol. Cevap sonrası \"İyi Okumalar Dileriz\" tarzında nazik eklemeler olsun.\n\n\nKullanıcı mesajı: {{ $('User Webhook').item.json.body.message }}",
+        "text": "=Rol:  \nSen bir kitap dükkanı yardımcısısın. Elasticsearch `bookstore` indeksindeki kayıtları incele, kullanıcının mesajına göre ona uygun bir cevap ver.  \n\nGörev Kuralları:  \n1. Kullanıcının doğal dildeki mesajını analiz et.\n2. Tüm kitapları listelemek için: **Get many documents**\n3. Kullanıcının isteğine göre kitap önerisi , indrimdeki ürünleri gösterme tarzında aksiyonlar al.\n4.**Get many documents** ile kitaplarımızı çek ve kitaplarımız arasında olmayan kitap önerme.\n4. Eğer kullanıcı bir kitap getirmeni veya indirim soruyorsa bütün kitapları listele ve uygun seçenekleri kendin filtreleyip kullanıcıya sun.\n5. Eğer kullanıcı senden kitabı sepete eklemeni istiyorsa **Get many documents** ile `carts` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile sepetteki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer sepette yoksa\n\ncreate a document in carts ile:  \n   {\n     \"tool\": \"Create a document in carts\",\n     \"params\": {\n       \"index\": \"carts\",\n       \"document_body\": {\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\",\n        \"productId\": \"eklenmesi isteyen kitap idsi\",\n        \"quantity\": 1\n       }\n     }\n   }\n\nEğer sepette kitap varsa \nupdate a document in carts ile:\n{\n  \"tool\": \"Update a document in carts\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\",\n    \"document_body\": {\n      \"quantity\": Kullanıcı sayı belirtmediyse şuanki değere 1 ekle , belirtti ise o sayıya göre güncelle (integer)\n    }\n  }\n}\n\n\n6.kullanıcı sepetten kitabı silmek isterse **Get many documents** ile `carts` indexindeki dosyalarını silinmek istenen kitabın id'sinin olduğu cart itemini bul ve id'sini ezberle.\nEğer kullanıcı “kitabı sepette sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"carts\",\n    \"id\": \"<cartitem_id>\"\n  }\n}\n\n7. İstek listesine eklemeni isterse **Get many documents** ile `wishlists` indexindeki dosyaları getir.\nDaha sonra kullanıcı id'si ile istek listesindeki idleri eşle.\nKullanıcı id : {{ $('User Webhook').item.json.body.currentuserId }} \nDaha sonra eklenecek kitap eğer istek listesinde yoksa ekle varsa ekleme yapma.\n\ncreate a document ile:  \n   {\n     \"tool\": \"Create a document in wishlist\",\n     \"params\": {\n       \"index\": \"wishlists\",\n       \"document_body\": {\n          \"productId\": \"eklenmesi isteyen kitap idsi\",\n           \"productTitle\": \"eklenmesi isteyen kitap ismi\" ,\n         \"userId\": \"{{ $('User Webhook').item.json.body.currentuserId }}\"\n       }\n     }\n   }\n\nEğer kullanıcı “kitabı istek listesinden sil” diyorsa:\n{\n  \"tool\": \"Delete a document\",\n  \"params\": {\n    \"index\": \"wishlists\",\n    \"id\": \"<wishlistitem_id>\"\n  }\n}\n\nCevabını HTML formatında yaz. \nCevapta kesinlikle ```html veya ``` gibi kod bloğu işaretleri olmasın, sadece HTML olsun.\nÇok abartma ama nazik ol. Cevap sonrası \"İyi Okumalar Dileriz\" tarzında nazik eklemeler olsun.\n\n\nKullanıcı mesajı: {{ $('User Webhook').item.json.body.message }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -404,7 +402,7 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        -224,
+        -240,
         496
       ],
       "id": "5140c1ae-e3d8-4a6b-a379-d309e2150d51",
@@ -843,7 +841,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        704,
+        736,
         528
       ],
       "id": "62578d7e-86bf-48a8-98d3-8fb327ffc18b",
@@ -1542,7 +1540,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "e7cad81e-fa50-4831-8baf-8c3ec70d58f8",
+  "versionId": "15046e50-fdc9-4ce8-8ccf-f54c4f2ca2f0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3826b8abe95aa479768a0aa9a89abea8203bc60a19ade533b9786208f8ce2f0a"
